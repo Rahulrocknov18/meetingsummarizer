@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/github/languages/top/Rahulrocknov18/meetingsummarizer?color=blue&label=typescript" />
   <img src="https://img.shields.io/github/languages/count/Rahulrocknov18/meetingsummarizer?label=languages" />
 </p>
-
+<p align="center"><i>Built with the tools and technologies:</i></p>
 <p align="center">
   <img src="https://img.shields.io/badge/-JSON-informational" />
   <img src="https://img.shields.io/badge/-npm-critical" />
