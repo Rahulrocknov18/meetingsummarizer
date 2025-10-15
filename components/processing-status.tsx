@@ -43,7 +43,7 @@ export function ProcessingStatus({ meetingId, onComplete }: ProcessingStatusProp
         const response = await fetch(`/api/meetings/${meetingId}`)
 
         if (!response.ok) {
-          console.error("[v0] Failed to fetch meeting status:", response.status)
+          console.error("Failed to fetch meeting status:", response.status)
           setError("Failed to fetch meeting status. Please refresh the page.")
           return
         }
@@ -51,7 +51,7 @@ export function ProcessingStatus({ meetingId, onComplete }: ProcessingStatusProp
         const data = await response.json()
 
         if (!data.meeting) {
-          console.error("[v0] Meeting data is missing")
+          console.error("Meeting data is missing")
           setError("Meeting not found. Please try uploading again.")
           return
         }
@@ -91,16 +91,16 @@ export function ProcessingStatus({ meetingId, onComplete }: ProcessingStatusProp
 
   const startTranscription = async () => {
     try {
-      console.log("[v0] Starting transcription for meeting:", meetingId)
+      console.log("Starting transcription for meeting:", meetingId)
       const response = await fetch("/api/transcribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ meetingId }),
       })
 
-      console.log("[v0] Transcription response status:", response.status)
+      console.log("Transcription response status:", response.status)
       const data = await response.json()
-      console.log("[v0] Transcription response data:", data)
+      console.log("Transcription response data:", data)
 
       if (!response.ok) {
         if (response.status === 429 && data.code === "RATE_LIMIT_EXCEEDED") {
@@ -114,7 +114,7 @@ export function ProcessingStatus({ meetingId, onComplete }: ProcessingStatusProp
       // Start summarization after transcription
       setTimeout(startSummarization, 1000)
     } catch (err) {
-      console.error("[v0] Transcription error:", err)
+      console.error("Transcription error:", err)
       const errorMessage = err instanceof Error ? err.message : "Transcription failed. Please try again."
       setError(errorMessage)
     }
@@ -122,16 +122,16 @@ export function ProcessingStatus({ meetingId, onComplete }: ProcessingStatusProp
 
   const startSummarization = async () => {
     try {
-      console.log("[v0] Starting summarization for meeting:", meetingId)
+      console.log("Starting summarization for meeting:", meetingId)
       const response = await fetch("/api/summarize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ meetingId }),
       })
 
-      console.log("[v0] Summarization response status:", response.status)
+      console.log("Summarization response status:", response.status)
       const data = await response.json()
-      console.log("[v0] Summarization response data:", data)
+      console.log("Summarization response data:", data)
 
       if (!response.ok) {
         if (response.status === 404) {
@@ -146,7 +146,7 @@ export function ProcessingStatus({ meetingId, onComplete }: ProcessingStatusProp
         throw new Error(data.error || "Summarization failed")
       }
     } catch (err) {
-      console.error("[v0] Summarization error:", err)
+      console.error("Summarization error:", err)
       const errorMessage = err instanceof Error ? err.message : "Summarization failed. Please try again."
       setError(errorMessage)
     }
